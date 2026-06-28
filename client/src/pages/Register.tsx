@@ -1,0 +1,5 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { useAuth } from '../store/authStore';
+export default function Register(){ const [name,setName]=useState('Bhavesh Kumar'); const [email,setEmail]=useState(''); const [password,setPassword]=useState('User@12345'); const {register}=useAuth(); const nav=useNavigate(); const submit=async(e:any)=>{e.preventDefault(); try{await register(name,email,password); toast.success('Account created'); nav('/')}catch(err:any){toast.error(err.response?.data?.message||'Register failed')}}; return <main className="container py-16 max-w-lg"><form onSubmit={submit} className="card p-8 space-y-4"><h1 className="text-3xl font-black">Create Account</h1><input className="input" value={name} onChange={e=>setName(e.target.value)} placeholder="Name"/><input className="input" value={email} onChange={e=>setEmail(e.target.value)} placeholder="Email"/><input className="input" type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="Password"/><button className="btn-primary w-full">Register</button></form></main> }

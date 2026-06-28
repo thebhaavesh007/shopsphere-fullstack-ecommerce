@@ -1,0 +1,23 @@
+import React, { useEffect } from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
+import './index.css';
+import Layout from './components/Layout';
+import { Protected } from './components/Protected';
+import { useAuth } from './store/authStore';
+import Admin from './pages/Admin';
+import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import OrderDetails from './pages/OrderDetails';
+import Orders from './pages/Orders';
+import ProductDetails from './pages/ProductDetails';
+import Products from './pages/Products';
+import Profile from './pages/Profile';
+import Register from './pages/Register';
+import Wishlist from './pages/Wishlist';
+import { PaymentFailure, PaymentSuccess } from './pages/PaymentStatus';
+function App(){ const {me}=useAuth(); useEffect(()=>{me()},[]); return <BrowserRouter><Toaster position="top-right"/><Routes><Route element={<Layout/>}><Route path="/" element={<Home/>}/><Route path="/products" element={<Products/>}/><Route path="/products/:id" element={<ProductDetails/>}/><Route path="/login" element={<Login/>}/><Route path="/register" element={<Register/>}/><Route path="/cart" element={<Protected><Cart/></Protected>}/><Route path="/checkout" element={<Protected><Checkout/></Protected>}/><Route path="/orders" element={<Protected><Orders/></Protected>}/><Route path="/orders/:id" element={<Protected><OrderDetails/></Protected>}/><Route path="/wishlist" element={<Protected><Wishlist/></Protected>}/><Route path="/profile" element={<Protected><Profile/></Protected>}/><Route path="/admin" element={<Protected admin><Admin/></Protected>}/><Route path="/payment/success" element={<PaymentSuccess/>}/><Route path="/payment/failure" element={<PaymentFailure/>}/></Route></Routes></BrowserRouter> }
+ReactDOM.createRoot(document.getElementById('root')!).render(<React.StrictMode><App/></React.StrictMode>);

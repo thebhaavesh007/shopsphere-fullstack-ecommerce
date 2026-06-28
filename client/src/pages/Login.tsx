@@ -1,0 +1,5 @@
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { useAuth } from '../store/authStore';
+export default function Login(){ const [email,setEmail]=useState('admin@shopsphere.dev'); const [password,setPassword]=useState('Admin@12345'); const {login}=useAuth(); const nav=useNavigate(); const submit=async(e:any)=>{e.preventDefault(); try{await login(email,password); toast.success('Logged in'); nav('/')}catch(err:any){toast.error(err.response?.data?.message||'Login failed')}}; return <main className="container py-16 max-w-lg"><form onSubmit={submit} className="card p-8 space-y-4"><h1 className="text-3xl font-black">Login</h1><input className="input" value={email} onChange={e=>setEmail(e.target.value)} placeholder="Email"/><input className="input" type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="Password"/><button className="btn-primary w-full">Login</button><p className="text-sm text-slate-500">No account? <Link className="font-bold" to="/register">Register</Link></p></form></main> }

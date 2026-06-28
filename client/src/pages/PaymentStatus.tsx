@@ -1,0 +1,2 @@
+export function PaymentSuccess(){return <main className="container py-20"><div className="card p-10 text-center"><h1 className="text-4xl font-black">Payment Successful</h1><p className="text-slate-500 mt-3">Your order is being processed.</p></div></main>}
+export function PaymentFailure(){return <main className="container py-20"><div className="card p-10 text-center"><h1 className="text-4xl font-black">Payment Failed</h1><p className="text-slate-500 mt-3">Please try again or choose cash on delivery.</p></div></main>}

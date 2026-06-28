@@ -1,0 +1,13 @@
+import { Router } from 'express';
+import { z } from 'zod';
+import { forgotPassword, login, logout, me, register, resetPassword } from '../controllers/authController';
+import { protect } from '../middlewares/auth';
+import { validate } from '../middlewares/validate';
+const router = Router();
+router.post('/register', validate(z.object({ body: z.object({ name: z.string().min(2), email: z.string().email(), password: z.string().min(8) }) })), register);
+router.post('/login', login);
+router.post('/logout', logout);
+router.post('/forgot-password', forgotPassword);
+router.post('/reset-password', resetPassword);
+router.get('/me', protect, me);
+export default router;

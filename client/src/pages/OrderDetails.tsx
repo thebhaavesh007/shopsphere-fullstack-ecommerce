@@ -1,0 +1,4 @@
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { api, money } from '../services/api';
+export default function OrderDetails(){ const {id}=useParams(); const [o,setO]=useState<any>(); useEffect(()=>{api.get(`/orders/${id}`).then(r=>setO(r.data))},[id]); if(!o)return <main className="container py-10">Loading...</main>; return <main className="container py-10"><div className="card p-8"><h1 className="text-3xl font-black">Order #{o._id}</h1><p className="mt-2">Status: <b>{o.orderStatus}</b> · Payment: <b>{o.paymentStatus}</b></p><div className="mt-6 space-y-3">{o.items.map((i:any)=><div key={i.productId} className="flex justify-between border-b pb-3"><span>{i.name} × {i.quantity}</span><b>{money(i.price*i.quantity)}</b></div>)}</div><h2 className="text-2xl font-black mt-6">Total: {money(o.totalAmount)}</h2></div></main> }
